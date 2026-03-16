@@ -1,0 +1,15 @@
+# ignore node modules and build outputs
+node_modules
+dist
+dist-electron
+/src/node_modules
+
+# python caches
+__pycache__
+*.pyc
+
+# envs and IDE
+.env
+control-core/.env
+.vscode
+.git
