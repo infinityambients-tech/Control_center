@@ -22,3 +22,11 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Python / backend local env
+.env
+.env.*
+control-core/.env
+control-core/test.db
+control-core/.pytest_cache_writable
+control-core/pytest-cache-files-*

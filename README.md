@@ -34,3 +34,4 @@ python main.py
 ```
 
 Więcej: `docs/INSTALL.md`, `docs/BUILD.md`, `docs/UPDATES.md`.
+Bezpieczeństwo/secrety: `docs/SECRETS.md`.

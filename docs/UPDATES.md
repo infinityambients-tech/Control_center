@@ -28,7 +28,7 @@ Mechanizm sprawdza GitHub Releases na podstawie ustawienia w DB (priorytet) lub 
 - wartość: `owner/repo`
 
 Alternatywnie ENV:
-- `GITHUB_REPO=owner/repo` w `control-core/.env`
+- `GITHUB_REPO=infinityambients-tech/Control_center` w `control-core/.env`
 
 ## Token (zalecane)
 Bez tokenu GitHub API ma niski limit (rate limit). Dla prywatnych repo token jest wymagany.

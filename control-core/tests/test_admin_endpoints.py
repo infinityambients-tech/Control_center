@@ -8,6 +8,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from fastapi.testclient import TestClient
 
 from app.core.db import Base, SessionLocal, engine
+from app.core.config import settings
 from app.core.security import create_access_token, get_password_hash
 from app.main import app
 from app.modules.auth.models import User, UserRole, UserStatus
@@ -54,6 +55,10 @@ def test_admin_dashboard_and_users_list():
 def test_updates_check_requires_repo_setting():
     Base.metadata.create_all(bind=engine)
 
+    # Ensure this test is stable even if local `.env` provides a repo.
+    old_repo = settings.GITHUB_REPO
+    settings.GITHUB_REPO = None
+
     with SessionLocal() as db:
         user = User(
             email="user_test@example.com",
@@ -73,6 +78,8 @@ def test_updates_check_requires_repo_setting():
         headers = _auth_headers(str(user.id))
 
     with TestClient(app) as client:
-        resp = client.get("/api/v1/updates/check", headers=headers)
-        assert resp.status_code == 400
-
+        try:
+            resp = client.get("/api/v1/updates/check", headers=headers)
+            assert resp.status_code == 400
+        finally:
+            settings.GITHUB_REPO = old_repo
