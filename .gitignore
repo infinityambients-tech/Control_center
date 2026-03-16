@@ -11,6 +11,10 @@ node_modules
 dist
 dist-ssr
 *.local
+*.spec
+build/
+desktop-qt/build/
+desktop-qt/dist/
 
 # Editor directories and files
 .vscode/*
@@ -25,8 +29,12 @@ dist-ssr
 
 # Python / backend local env
 .env
-.env.*
 control-core/.env
+
+# Allow examples to be committed
+!.env.example
+!control-core/.env.example
 control-core/test.db
+control-core/.pytest_cache/
 control-core/.pytest_cache_writable
 control-core/pytest-cache-files-*
