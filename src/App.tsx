@@ -6,6 +6,7 @@ import Subscriptions from './modules/subscriptions/Subscriptions';
 import Roadmap from './modules/roadmap/Roadmap';
 import Deployments from './modules/deployments/Deployments';
 import Settings from './modules/settings/Settings';
+import Updates from './modules/updates/Updates';
 import { Login } from './modules/auth/Login';
 import { Register } from './modules/auth/Register';
 import { EmailVerification, EmailVerificationSuccess, EmailVerificationError } from './modules/auth/EmailVerification';
@@ -105,6 +106,7 @@ function App() {
         <Route path="/deployments" element={<ProtectedRoute element={<Deployments />} isAuthenticated={isAuthenticated} />} />
         <Route path="/plans" element={<ProtectedRoute element={<Plans />} isAuthenticated={isAuthenticated} />} />
         <Route path="/audit" element={<ProtectedRoute element={<Audit />} isAuthenticated={isAuthenticated} />} />
+        <Route path="/updates" element={<ProtectedRoute element={<Updates />} isAuthenticated={isAuthenticated} />} />
         <Route path="/settings" element={<ProtectedRoute element={<Settings />} isAuthenticated={isAuthenticated} />} />
 
         {/* Catch all - redirect to login if not authenticated, else to home */}
@@ -115,4 +117,3 @@ function App() {
 }
 
 export default App;
-

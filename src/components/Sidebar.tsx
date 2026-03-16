@@ -20,6 +20,7 @@ const navItems = [
   { icon: Activity, label: 'Deployments', path: '/deployments' },
   { icon: Layers, label: 'Plans & Limits', path: '/plans' },
   { icon: Shield, label: 'Security', path: '/audit' },
+  { icon: Boxes, label: 'Updates', path: '/updates' },
 ];
 
 export const Sidebar: React.FC = () => {
