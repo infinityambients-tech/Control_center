@@ -84,19 +84,61 @@ export function setupIpc() {
 
     // Auto-update (electron-updater)
     ipcMain.handle('updates:getVersion', () => app.getVersion());
-    ipcMain.handle('updates:check', async () => {
-        if (!app.isPackaged) throw new Error('Updates available only in packaged build');
+    ipcMain.handle('updates:check', async (event) => {
+        if (!app.isPackaged) {
+            // Mock update process for development visualization
+            event.sender.send('updates:event', { type: 'checking' });
+            setTimeout(() => {
+                if (!event.sender.isDestroyed()) {
+                    event.sender.send('updates:event', { 
+                        type: 'available', 
+                        info: { version: '0.1.3' } 
+                    });
+                }
+            }, 1000);
+            return { success: true };
+        }
         await autoUpdater.checkForUpdates();
-        return true;
+        return { success: true };
     });
-    ipcMain.handle('updates:download', async () => {
-        if (!app.isPackaged) throw new Error('Updates available only in packaged build');
+    ipcMain.handle('updates:download', async (event) => {
+        if (!app.isPackaged) {
+            // Mock download progress for development visualization
+            let percent = 0;
+            const interval = setInterval(() => {
+                if (event.sender.isDestroyed()) {
+                    clearInterval(interval);
+                    return;
+                }
+                percent += 20;
+                if (percent <= 100) {
+                    event.sender.send('updates:event', { 
+                        type: 'progress', 
+                        progress: { percent, bytesPerSecond: 1024 * 512 } 
+                    });
+                }
+                if (percent >= 100) {
+                    clearInterval(interval);
+                    event.sender.send('updates:event', { type: 'downloaded' });
+                }
+            }, 500);
+            return { success: true };
+        }
         await autoUpdater.downloadUpdate();
-        return true;
+        return { success: true };
     });
     ipcMain.handle('updates:install', async () => {
-        if (!app.isPackaged) throw new Error('Updates available only in packaged build');
+        if (!app.isPackaged) {
+            const { dialog } = await import('electron');
+            await dialog.showMessageBox({
+                type: 'info',
+                title: 'Symulacja Instalacji',
+                message: 'W wersji produkcyjnej aplikacja zostałaby teraz zamknięta i zainstalowana nowa wersja.',
+                buttons: ['OK']
+            });
+            return { success: true };
+        }
         autoUpdater.quitAndInstall();
-        return true;
+        return { success: true };
     });
 }

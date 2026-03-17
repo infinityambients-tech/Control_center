@@ -1,15 +1,19 @@
 import { defineConfig } from 'vite'
+import path from 'node:path'
 import react from '@vitejs/plugin-react'
+import electron from 'vite-plugin-electron'
 
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
     react(),
-    /*
-    electron({
-      main: {
-        // Shortcut of `build.lib.entry`.
+    electron([
+      {
+        // Main-Process entry file of the Electron App.
         entry: 'electron/main.ts',
+        onstart(options) {
+          options.startup()
+        },
         vite: {
           build: {
             rollupOptions: {
@@ -18,10 +22,13 @@ export default defineConfig({
           },
         },
       },
-      preload: {
-        // Shortcut of `build.rollupOptions.input`.
-        // Preload scripts may contain WebConfig APIs, so use `build.rollupOptions.input` instead of `build.lib.entry`.
-        input: path.join(__dirname, 'electron/preload.ts'),
+      {
+        entry: 'electron/preload.ts',
+        onstart(options) {
+          // Notify the Renderer-Process to reload the page when the Preload-Script build is complete, 
+          // instead of restarting the entire Electron App.
+          options.reload()
+        },
         vite: {
           build: {
             rollupOptions: {
@@ -30,10 +37,7 @@ export default defineConfig({
           },
         },
       },
-      // PWA patches correctly only if `vite-plugin-electron` is used with `vite-plugin-pwa`.
-      // More details: https://github.com/electron-vite/vite-plugin-electron/issues/214
-    }),
-    */
+    ]),
   ],
   server: {
     proxy: {

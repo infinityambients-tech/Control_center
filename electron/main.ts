@@ -27,7 +27,7 @@ function createWindow() {
     win = new BrowserWindow({
         icon: path.join(VITE_PUBLIC_PATH, 'electron-vite.svg'),
         webPreferences: {
-            preload: path.join(__dirname, 'preload.mjs'),
+            preload: path.join(__dirname, 'preload.js'),
             nodeIntegration: false,
             contextIsolation: true,
         },
@@ -43,7 +43,6 @@ function createWindow() {
     if (VITE_DEV_SERVER_URL) {
         win.loadURL(VITE_DEV_SERVER_URL);
     } else {
-        // win.loadFile('dist/index.html')
         win.loadFile(path.join(DIST_PATH, 'index.html'));
     }
 }
