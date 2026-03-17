@@ -1,0 +1,210 @@
+/* Email Verification Component Styles */
+
+.email-verification-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--bg-dark) 0%, #1a1a2e 100%);
+  padding: 20px;
+}
+
+.verification-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 60px 40px;
+  width: 100%;
+  max-width: 500px;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  animation: slideUp 0.4s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.verification-card h1 {
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 24px 0 12px 0;
+}
+
+.verification-card p {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+
+/* Icons */
+.loading-icon,
+.success-icon,
+.error-icon {
+  margin: 0 auto 24px auto;
+  animation: slideDown 0.4s ease-out;
+}
+
+.loading-icon {
+  animation: slideDown 0.4s ease-out, spin 1s linear infinite;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Status Boxes */
+.status-box {
+  padding: 20px;
+  border-radius: 8px;
+  margin: 24px 0;
+  text-align: left;
+  border-left: 4px solid;
+}
+
+.success-status {
+  background: rgba(40, 167, 69, 0.1);
+  border-left-color: #28a745;
+}
+
+.success-status strong {
+  display: block;
+  color: #28a745;
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.success-status p {
+  color: var(--text-secondary);
+  font-size: 13px;
+  margin: 0;
+}
+
+.pending-status {
+  background: rgba(255, 193, 7, 0.1);
+  border-left-color: #ffc107;
+}
+
+.pending-status strong {
+  display: block;
+  color: #ffc107;
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.pending-status p {
+  color: var(--text-secondary);
+  font-size: 13px;
+  margin: 0;
+}
+
+/* Redirect Message */
+.redirect-message {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-top: 20px;
+  font-style: italic;
+}
+
+/* Action Buttons */
+.error-actions {
+  display: flex;
+  gap: 12px;
+  margin: 32px 0 16px 0;
+  flex-direction: column;
+}
+
+.action-btn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.action-btn.primary {
+  background: linear-gradient(135deg, var(--accent) 0%, #0057cc 100%);
+  color: white;
+  width: 100%;
+}
+
+.action-btn.primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 112, 243, 0.4);
+}
+
+.action-btn.secondary {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+  width: 100%;
+}
+
+.action-btn.secondary:hover {
+  background: var(--bg-card);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* Help Text */
+.help-text {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-top: 20px;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .verification-card {
+    padding: 40px 24px;
+    border-radius: 8px;
+  }
+
+  .verification-card h1 {
+    font-size: 24px;
+  }
+
+  .error-actions {
+    flex-direction: column;
+  }
+
+  .action-btn {
+    width: 100%;
+  }
+}
+
+/* Dark Mode */
+@media (prefers-color-scheme: dark) {
+  .email-verification-container {
+    background: linear-gradient(135deg, #0f0f0f 0%, #1a1a2e 100%);
+  }
+}
